@@ -37,6 +37,10 @@ jobs:
         run: |
           docker push maliabhi23/skin-cancer-api:latest
 
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker push maliabhi23/myime:latest
+
   deploy:
     needs: build-and-deploy
     runs-on: ubuntu-latest
@@ -51,4 +55,4 @@ jobs:
             docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
             docker pull maliabhi23/skin-cancer-api:latest
             docker stop skin-cancer-api || true && docker rm skin-cancer-api || true
-            docker run -d -p 80:8501 --name skin-cancer-api maliabhi23/skin-cancer-api:latest
+            docker run -d -p 5000:5000 --name skin-cancer-api maliabhi23/skin-cancer-api:latest
